@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Arena Gestor - Dark Mode</title>
+    <title>Gestor Elite - Campeonato</title>
     <style>
         :root {
-            --bg: #12181f; /* Fundo principal escuro */
-            --card-bg: #222b36; /* Fundo dos cards */
-            --input-bg: #1c222a; /* Fundo dos campos de texto */
-            --primary: #3b82f6; /* Azul destaque */
-            --secondary: #22c55e; /* Verde botões */
-            --danger: #ef4444; /* Vermelho excluir/limpar */
+            --bg: #12181f;
+            --card-bg: #222b36;
+            --input-bg: #1c222a;
+            --primary: #3b82f6;
+            --secondary: #22c55e;
+            --warning: #facc15; /* Amarelo para cartões */
+            --danger: #ef4444;
             --text-main: #ffffff;
             --text-secondary: #94a3b8;
             --border: #334155;
@@ -19,91 +20,64 @@
 
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
-            background: var(--bg); 
-            color: var(--text-main);
-            margin: 0;
-            padding: 10px;
-            padding-bottom: 50px;
+            background: var(--bg); color: var(--text-main); margin: 0; padding: 10px; padding-bottom: 50px;
         }
 
         h1, h2 { text-align: center; color: var(--text-main); font-weight: 700; }
-        h1 { font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); text-align: left; margin-bottom: 15px; }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; }
+        h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); text-align: left; margin-bottom: 15px; }
 
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg); border-radius: 12px; padding: 15px; margin-bottom: 15px;
+            border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .form-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
         input, select {
-            padding: 12px;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
+            padding: 12px; background: var(--input-bg); border: 1px solid var(--border);
+            border-radius: 8px; color: white; font-size: 16px;
         }
-
-        input::placeholder { color: #4b5563; }
 
         .btn {
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: brightness 0.2s;
+            padding: 14px; border: none; border-radius: 8px; font-weight: bold;
+            font-size: 14px; cursor: pointer; text-transform: uppercase;
         }
         .btn-primary { background: var(--primary); color: white; width: 100%; }
         .btn-success { background: var(--secondary); color: white; width: 100%; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn:active { filter: brightness(0.8); }
-
+        
         .btn-mini-danger { 
-            background: #ef444422; 
-            border: 1px solid var(--danger); 
-            color: var(--danger); 
-            font-size: 10px;
-            padding: 4px 8px;
-            border-radius: 4px;
+            background: transparent; border: 1px solid var(--danger); color: var(--danger); 
+            font-size: 10px; padding: 4px 8px; border-radius: 4px;
         }
 
-        /* Tabelas */
-        .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 350px; }
-        th { color: var(--text-secondary); text-align: left; padding: 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
-        td { padding: 12px 10px; border-bottom: 1px solid #ffffff05; }
+        /* Tabela Mobile */
+        .table-container { overflow-x: auto; margin-top: 10px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 500px; }
+        th { color: var(--text-secondary); text-align: left; padding: 8px; border-bottom: 1px solid var(--border); font-size: 11px; }
+        td { padding: 10px 8px; border-bottom: 1px solid #ffffff05; }
         
         .points { color: var(--secondary); font-weight: bold; }
+        .flex-header { display: flex; justify-content: space-between; align-items: center; }
 
-        .flex-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-
-        hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
-
-        .row-scout { display: flex; align-items: center; gap: 8px; }
-        .btn-add { background: var(--border); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; }
+        /* Estilo Scout */
+        .scout-btns { display: flex; gap: 4px; align-items: center; }
+        .btn-s { border: none; border-radius: 4px; padding: 4px 8px; font-weight: bold; color: white; min-width: 30px; }
+        .bg-g { background: #10b981; } /* Gols */
+        .bg-a { background: #6366f1; } /* Assis */
+        .bg-c { background: #f59e0b; } /* Cartão */
     </style>
 </head>
 <body>
 
     <h1>⚽ Grupo Borussia RuimDeBola - 1º CAMPEONATO</h1>
 
-    <!-- REGISTROS -->
+    <!-- CADASTROS -->
     <div class="card">
-        <h2>Adicionar Times e Jogadores</h2>
+        <h2>Início</h2>
         <div class="form-group">
             <input type="text" id="nome-time" placeholder="Nome do Time">
             <button class="btn btn-primary" onclick="addTime()">Adicionar Time</button>
         </div>
-        <hr>
         <div class="form-group">
             <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
             <select id="select-time-jogador"></select>
@@ -113,30 +87,36 @@
 
     <!-- PLACAR -->
     <div class="card">
-        <h2>Resultado da Rodada</h2>
-        <div style="display: grid; grid-template-columns: 1fr 60px 60px 1fr; gap: 8px; align-items: center; margin-bottom: 15px;">
-            <select id="time-casa" style="width: 100%; padding: 8px;"></select>
-            <input type="number" id="gols-casa" placeholder="0" style="text-align: center; padding: 8px;">
-            <input type="number" id="gols-fora" placeholder="0" style="text-align: center; padding: 8px;">
-            <select id="time-fora" style="width: 100%; padding: 8px;"></select>
+        <h2>Rodada Atual</h2>
+        <div style="display: grid; grid-template-columns: 1fr 50px 50px 1fr; gap: 5px; align-items: center; margin-bottom: 10px;">
+            <select id="time-casa" style="font-size: 14px;"></select>
+            <input type="number" id="gols-casa" placeholder="0" style="text-align: center;">
+            <input type="number" id="gols-fora" placeholder="0" style="text-align: center;">
+            <select id="time-fora" style="font-size: 14px;"></select>
         </div>
         <button class="btn btn-primary" onclick="registrarPartida()">Registrar Resultado</button>
     </div>
 
-    <!-- CLASSIFICAÇÃO -->
+    <!-- CLASSIFICAÇÃO COMPLETA -->
     <div class="card">
         <div class="flex-header">
-            <h2>Tabela de Classificação</h2>
-            <button class="btn-mini-danger" onclick="resetTabela()">Zerar Pontos</button>
+            <h2>Classificação</h2>
+            <button class="btn-mini-danger" onclick="resetTabela()">Reset</button>
         </div>
         <div class="table-container">
             <table id="tabela-class">
                 <thead>
                     <tr>
                         <th>TIME</th>
-                        <th>P</th>
+                        <th>PONTOS</th>
+                        <th>J</th>
                         <th>V</th>
+                        <th>E</th>
+                        <th>D</th>
+                        <th>GP</th>
+                        <th>GC</th>
                         <th>SG</th>
+                        <th>CART</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -144,19 +124,20 @@
         </div>
     </div>
 
-    <!-- ARTILHARIA -->
+    <!-- SCOUTS JOGADORES -->
     <div class="card">
         <div class="flex-header">
-            <h2>Artilharia e Assistências</h2>
-            <button class="btn-mini-danger" onclick="excluirJogadores()">Limpar Jogadores</button>
+            <h2>Artilharia e Disciplina</h2>
+            <button class="btn-mini-danger" onclick="excluirJogadores()">Limpar</button>
         </div>
         <div class="table-container">
             <table id="tabela-scouts">
                 <thead>
                     <tr>
-                        <th>JOGADOR</th>
+                        <th>JOGADOR/TIME</th>
                         <th>GOLS</th>
-                        <th>ASSIS.</th>
+                        <th>ASSIS</th>
+                        <th>CARTÕES</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -165,18 +146,19 @@
     </div>
 
     <script>
-        let times = JSON.parse(localStorage.getItem('times_dark')) || [];
-        let jogadores = JSON.parse(localStorage.getItem('jogadores_dark')) || [];
+        let times = JSON.parse(localStorage.getItem('ge_times')) || [];
+        let jogadores = JSON.parse(localStorage.getItem('ge_jogadores')) || [];
 
         function salvar() {
-            localStorage.setItem('times_dark', JSON.stringify(times));
-            localStorage.setItem('jogadores_dark', JSON.stringify(jogadores));
+            localStorage.setItem('ge_times', JSON.stringify(times));
+            localStorage.setItem('ge_jogadores', JSON.stringify(jogadores));
             render();
         }
 
         function addTime() {
             const nome = document.getElementById('nome-time').value;
             if (!nome) return;
+            // P=Pontos, V=Vitórias, E=Empates, D=Derrotas, GP=Gols Pró, GC=Gols Contra
             times.push({ nome, v: 0, e: 0, d: 0, gp: 0, gc: 0 });
             document.getElementById('nome-time').value = '';
             salvar();
@@ -186,27 +168,27 @@
             const nome = document.getElementById('nome-jogador').value;
             const time = document.getElementById('select-time-jogador').value;
             if (!nome || !time) return;
-            jogadores.push({ nome, time, gols: 0, assistencias: 0 });
+            jogadores.push({ nome, time, gols: 0, assistencias: 0, cartoes: 0 });
             document.getElementById('nome-jogador').value = '';
             salvar();
         }
 
+        function resetTabela() {
+            if (confirm("Zerar classificação?")) {
+                times.forEach(t => { t.v=0; t.e=0; t.d=0; t.gp=0; t.gc=0; });
+                salvar();
+            }
+        }
+
         function excluirJogadores() {
-            if (confirm("Deseja apagar TODOS os jogadores?")) {
+            if (confirm("Apagar jogadores?")) {
                 jogadores = [];
                 salvar();
             }
         }
 
-        function resetTabela() {
-            if (confirm("Zerar a pontuação de todos os times?")) {
-                times.forEach(t => { t.v = 0; t.e = 0; t.d = 0; t.gp = 0; t.gc = 0; });
-                salvar();
-            }
-        }
-
-        function addScout(idx, tipo) {
-            jogadores[idx][tipo]++;
+        function updateScout(idx, campo) {
+            jogadores[idx][campo]++;
             salvar();
         }
 
@@ -230,36 +212,64 @@
             salvar();
         }
 
+        // Função para somar cartões do time
+        function totalCartoesTime(nomeTime) {
+            return jogadores.filter(j => j.time === nomeTime).reduce((acc, curr) => acc + curr.cartoes, 0);
+        }
+
         function render() {
             const selects = ['select-time-jogador', 'time-casa', 'time-fora'];
             selects.forEach(s => {
                 const el = document.getElementById(s);
                 const val = el.value;
-                el.innerHTML = '<option value="">Time...</option>';
+                el.innerHTML = '<option value="">Selecione...</option>';
                 times.forEach(t => el.innerHTML += `<option value="${t.nome}">${t.nome}</option>`);
                 el.value = val;
             });
 
+            // Lógica de Ordenação: Vitórias > Saldo > Gols Pró > Menos Cartões
+            const timesOrdenados = [...times].sort((a,b) => {
+                const pA = a.v * 3 + a.e;
+                const pB = b.v * 3 + b.e;
+                const sgA = a.gp - a.gc;
+                const sgB = b.gp - b.gc;
+                const cA = totalCartoesTime(a.nome);
+                const cB = totalCartoesTime(b.nome);
+
+                if (pB !== pA) return pB - pA;
+                if (b.v !== a.v) return b.v - a.v;
+                if (sgB !== sgA) return sgB - sgA;
+                if (b.gp !== a.gp) return b.gp - a.gp;
+                return cA - cB; // Menos cartões vence
+            });
+
             const tab = document.querySelector('#tabela-class tbody');
             tab.innerHTML = '';
-            const timesOrdenados = [...times].sort((a,b) => (b.v*3+b.e) - (a.v*3+a.e) || (b.gp-b.gc) - (a.gp-a.gc));
-            
-            timesOrdenados.forEach(t => {
+            timesOrdenados.forEach((t, i) => {
                 tab.innerHTML += `<tr>
-                    <td><strong>${t.nome}</strong></td>
+                    <td>${i+1}. <strong>${t.nome}</strong></td>
                     <td class="points">${t.v*3+t.e}</td>
+                    <td>${t.v+t.e+t.d}</td>
                     <td>${t.v}</td>
+                    <td>${t.e}</td>
+                    <td>${t.d}</td>
+                    <td>${t.gp}</td>
+                    <td>${t.gc}</td>
                     <td>${t.gp-t.gc}</td>
+                    <td style="color:var(--warning)">${totalCartoesTime(t.nome)}</td>
                 </tr>`;
             });
 
             const tabS = document.querySelector('#tabela-scouts tbody');
             tabS.innerHTML = '';
-            jogadores.sort((a,b) => b.gols - a.gols).forEach((j, i) => {
+            [...jogadores].sort((a,b) => b.gols - a.gols).forEach((j, i) => {
+                // Encontrar o index original no array de jogadores para a função updateScout
+                const originalIndex = jogadores.indexOf(j);
                 tabS.innerHTML += `<tr>
-                    <td>${j.nome}<br><small style="color:#64748b">${j.time}</small></td>
-                    <td><div class="row-scout">${j.gols} <button class="btn-add" onclick="addScout(${i}, 'gols')">+</button></div></td>
-                    <td><div class="row-scout">${j.assistencias} <button class="btn-add" onclick="addScout(${i}, 'assistencias')">+</button></div></td>
+                    <td>${j.nome}<br><small style="color:var(--text-secondary)">${j.time}</small></td>
+                    <td><div class="scout-btns">${j.gols} <button class="btn-s bg-g" onclick="updateScout(${originalIndex}, 'gols')">+</button></div></td>
+                    <td><div class="scout-btns">${j.assistencias} <button class="btn-s bg-a" onclick="updateScout(${originalIndex}, 'assistencias')">+</button></div></td>
+                    <td><div class="scout-btns">${j.cartoes} <button class="btn-s bg-c" onclick="updateScout(${originalIndex}, 'cartoes')">+</button></div></td>
                 </tr>`;
             });
         }
