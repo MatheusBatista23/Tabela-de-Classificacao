@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Arena Gestor - Dark Mode</title>
+    <style>
+        :root {
+            --bg: #12181f; /* Fundo principal escuro */
+            --card-bg: #222b36; /* Fundo dos cards */
+            --input-bg: #1c222a; /* Fundo dos campos de texto */
+            --primary: #3b82f6; /* Azul destaque */
+            --secondary: #22c55e; /* Verde botões */
+            --danger: #ef4444; /* Vermelho excluir/limpar */
+            --text-main: #ffffff;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: var(--bg); 
+            color: var(--text-main);
+            margin: 0;
+            padding: 10px;
+            padding-bottom: 50px;
+        }
+
+        h1, h2 { text-align: center; color: var(--text-main); font-weight: 700; }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); text-align: left; margin-bottom: 15px; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        
+        input, select {
+            padding: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+
+        input::placeholder { color: #4b5563; }
+
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: brightness 0.2s;
+        }
+        .btn-primary { background: var(--primary); color: white; width: 100%; }
+        .btn-success { background: var(--secondary); color: white; width: 100%; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn:active { filter: brightness(0.8); }
+
+        .btn-mini-danger { 
+            background: #ef444422; 
+            border: 1px solid var(--danger); 
+            color: var(--danger); 
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* Tabelas */
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 350px; }
+        th { color: var(--text-secondary); text-align: left; padding: 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
+        td { padding: 12px 10px; border-bottom: 1px solid #ffffff05; }
+        
+        .points { color: var(--secondary); font-weight: bold; }
+
+        .flex-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+
+        hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
+
+        .row-scout { display: flex; align-items: center; gap: 8px; }
+        .btn-add { background: var(--border); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>⚽ Grupo Borussia RuimDeBola - 1º CAMPEONATO</h1>
+
+    <!-- REGISTROS -->
+    <div class="card">
+        <h2>Adicionar Times e Jogadores</h2>
+        <div class="form-group">
+            <input type="text" id="nome-time" placeholder="Nome do Time">
+            <button class="btn btn-primary" onclick="addTime()">Adicionar Time</button>
+        </div>
+        <hr>
+        <div class="form-group">
+            <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
+            <select id="select-time-jogador"></select>
+            <button class="btn btn-success" onclick="addJogador()">Cadastrar Jogador</button>
+        </div>
+    </div>
+
+    <!-- PLACAR -->
+    <div class="card">
+        <h2>Resultado da Rodada</h2>
+        <div style="display: grid; grid-template-columns: 1fr 60px 60px 1fr; gap: 8px; align-items: center; margin-bottom: 15px;">
+            <select id="time-casa" style="width: 100%; padding: 8px;"></select>
+            <input type="number" id="gols-casa" placeholder="0" style="text-align: center; padding: 8px;">
+            <input type="number" id="gols-fora" placeholder="0" style="text-align: center; padding: 8px;">
+            <select id="time-fora" style="width: 100%; padding: 8px;"></select>
+        </div>
+        <button class="btn btn-primary" onclick="registrarPartida()">Registrar Resultado</button>
+    </div>
+
+    <!-- CLASSIFICAÇÃO -->
+    <div class="card">
+        <div class="flex-header">
+            <h2>Tabela de Classificação</h2>
+            <button class="btn-mini-danger" onclick="resetTabela()">Zerar Pontos</button>
+        </div>
+        <div class="table-container">
+            <table id="tabela-class">
+                <thead>
+                    <tr>
+                        <th>TIME</th>
+                        <th>P</th>
+                        <th>V</th>
+                        <th>SG</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ARTILHARIA -->
+    <div class="card">
+        <div class="flex-header">
+            <h2>Artilharia e Assistências</h2>
+            <button class="btn-mini-danger" onclick="excluirJogadores()">Limpar Jogadores</button>
+        </div>
+        <div class="table-container">
+            <table id="tabela-scouts">
+                <thead>
+                    <tr>
+                        <th>JOGADOR</th>
+                        <th>GOLS</th>
+                        <th>ASSIS.</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let times = JSON.parse(localStorage.getItem('times_dark')) || [];
+        let jogadores = JSON.parse(localStorage.getItem('jogadores_dark')) || [];
+
+        function salvar() {
+            localStorage.setItem('times_dark', JSON.stringify(times));
+            localStorage.setItem('jogadores_dark', JSON.stringify(jogadores));
+            render();
+        }
+
+        function addTime() {
+            const nome = document.getElementById('nome-time').value;
+            if (!nome) return;
+            times.push({ nome, v: 0, e: 0, d: 0, gp: 0, gc: 0 });
+            document.getElementById('nome-time').value = '';
+            salvar();
+        }
+
+        function addJogador() {
+            const nome = document.getElementById('nome-jogador').value;
+            const time = document.getElementById('select-time-jogador').value;
+            if (!nome || !time) return;
+            jogadores.push({ nome, time, gols: 0, assistencias: 0 });
+            document.getElementById('nome-jogador').value = '';
+            salvar();
+        }
+
+        function excluirJogadores() {
+            if (confirm("Deseja apagar TODOS os jogadores?")) {
+                jogadores = [];
+                salvar();
+            }
+        }
+
+        function resetTabela() {
+            if (confirm("Zerar a pontuação de todos os times?")) {
+                times.forEach(t => { t.v = 0; t.e = 0; t.d = 0; t.gp = 0; t.gc = 0; });
+                salvar();
+            }
+        }
+
+        function addScout(idx, tipo) {
+            jogadores[idx][tipo]++;
+            salvar();
+        }
+
+        function registrarPartida() {
+            const tC = times.find(t => t.nome === document.getElementById('time-casa').value);
+            const tF = times.find(t => t.nome === document.getElementById('time-fora').value);
+            const gC = parseInt(document.getElementById('gols-casa').value) || 0;
+            const gF = parseInt(document.getElementById('gols-fora').value) || 0;
+
+            if (!tC || !tF || tC === tF) return;
+
+            tC.gp += gC; tC.gc += gF;
+            tF.gp += gF; tF.gc += gC;
+
+            if (gC > gF) { tC.v++; tF.d++; }
+            else if (gF > gC) { tF.v++; tC.d++; }
+            else { tC.e++; tF.e++; }
+
+            document.getElementById('gols-casa').value = '';
+            document.getElementById('gols-fora').value = '';
+            salvar();
+        }
+
+        function render() {
+            const selects = ['select-time-jogador', 'time-casa', 'time-fora'];
+            selects.forEach(s => {
+                const el = document.getElementById(s);
+                const val = el.value;
+                el.innerHTML = '<option value="">Time...</option>';
+                times.forEach(t => el.innerHTML += `<option value="${t.nome}">${t.nome}</option>`);
+                el.value = val;
+            });
+
+            const tab = document.querySelector('#tabela-class tbody');
+            tab.innerHTML = '';
+            const timesOrdenados = [...times].sort((a,b) => (b.v*3+b.e) - (a.v*3+a.e) || (b.gp-b.gc) - (a.gp-a.gc));
+            
+            timesOrdenados.forEach(t => {
+                tab.innerHTML += `<tr>
+                    <td><strong>${t.nome}</strong></td>
+                    <td class="points">${t.v*3+t.e}</td>
+                    <td>${t.v}</td>
+                    <td>${t.gp-t.gc}</td>
+                </tr>`;
+            });
+
+            const tabS = document.querySelector('#tabela-scouts tbody');
+            tabS.innerHTML = '';
+            jogadores.sort((a,b) => b.gols - a.gols).forEach((j, i) => {
+                tabS.innerHTML += `<tr>
+                    <td>${j.nome}<br><small style="color:#64748b">${j.time}</small></td>
+                    <td><div class="row-scout">${j.gols} <button class="btn-add" onclick="addScout(${i}, 'gols')">+</button></div></td>
+                    <td><div class="row-scout">${j.assistencias} <button class="btn-add" onclick="addScout(${i}, 'assistencias')">+</button></div></td>
+                </tr>`;
+            });
+        }
+
+        render();
+    </script>
+</body>
+</html>
