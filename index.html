@@ -3,78 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gestor Elite - Export</title>
+    <title>Tabela do Campeonato </title>
     <style>
         :root {
-            --bg: #12181f;
-            --card-bg: #222b36;
-            --input-bg: #1c222a;
-            --primary: #3b82f6;
-            --secondary: #22c55e;
-            --warning: #facc15;
-            --danger: #ef4444;
-            --text-main: #ffffff;
-            --text-secondary: #94a3b8;
+            --bg: #12181f; --card-bg: #222b36; --input-bg: #1c222a;
+            --primary: #3b82f6; --secondary: #22c55e; --warning: #facc15;
+            --danger: #ef4444; --text-main: #ffffff; --text-secondary: #94a3b8;
             --border: #334155;
         }
-
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background: var(--bg); color: var(--text-main); margin: 0; padding: 10px; padding-bottom: 50px;
-        }
-
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 10px; padding-bottom: 50px; }
         h1, h2 { text-align: center; color: var(--text-main); font-weight: 700; }
         h1 { font-size: 1.5rem; margin-bottom: 20px; }
         h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); text-align: left; margin-bottom: 15px; }
-
-        .card {
-            background: var(--card-bg); border-radius: 12px; padding: 15px; margin-bottom: 15px;
-            border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
+        .card { background: var(--card-bg); border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-        input, select {
-            padding: 12px; background: var(--input-bg); border: 1px solid var(--border);
-            border-radius: 8px; color: white; font-size: 16px;
-        }
-
-        .btn {
-            padding: 14px; border: none; border-radius: 8px; font-weight: bold;
-            font-size: 14px; cursor: pointer; text-transform: uppercase; transition: 0.2s;
-        }
+        input, select { padding: 12px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: white; font-size: 16px; }
+        .btn { padding: 14px; border: none; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         .btn-primary { background: var(--primary); color: white; width: 100%; }
         .btn-success { background: var(--secondary); color: white; width: 100%; }
         .btn-export { background: #6366f1; color: white; width: 100%; margin-top: 10px; }
-        .btn-mini-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); font-size: 10px; padding: 4px 8px; border-radius: 4px; }
-
+        .btn-mini-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); font-size: 10px; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        .btn-delete-row { background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 2px 6px; font-size: 10px; border-radius: 4px; cursor: pointer; }
         .table-container { overflow-x: auto; margin-top: 10px; }
         table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 450px; }
         th { color: var(--text-secondary); text-align: left; padding: 8px; border-bottom: 1px solid var(--border); font-size: 11px; }
         td { padding: 10px 8px; border-bottom: 1px solid #ffffff05; }
-        
         .points { color: var(--secondary); font-weight: bold; }
         .flex-header { display: flex; justify-content: space-between; align-items: center; }
-
         .scout-btns { display: flex; gap: 4px; align-items: center; }
-        .btn-s { border: none; border-radius: 4px; padding: 4px 8px; font-weight: bold; color: white; min-width: 30px; }
-        .bg-g { background: #10b981; } 
-        .bg-a { background: #6366f1; } 
-        .bg-c { background: #f59e0b; }
-    
+        .btn-s { border: none; border-radius: 4px; padding: 4px 8px; font-weight: bold; color: white; min-width: 30px; cursor: pointer; }
+        .bg-g { background: #10b981; } .bg-a { background: #6366f1; } .bg-c { background: #f59e0b; }
         .dashboard-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:15px;}
         .side-panel{background:var(--input-bg);border-radius:10px;padding:10px;}
         .scroll-list{max-height:350px;overflow-y:auto;}
         .result-item,.art-item{padding:8px;border-bottom:1px solid rgba(255,255,255,.08);}
         .art-item{display:flex;justify-content:space-between;}
         @media(max-width:900px){.dashboard-grid{grid-template-columns:1fr;}}
-
-</style>
+    </style>
 </head>
 <body>
 
-    <h1>⚽ Gestor Elite Pro</h1>
+    <h1>⚽ Tabela do Campeonato </h1>
 
-    <!-- CADASTROS -->
     <div class="card">
         <h2>Início</h2>
         <div class="form-group">
@@ -88,7 +58,6 @@
         </div>
     </div>
 
-    <!-- PLACAR -->
     <div class="card">
         <h2>Rodada Atual</h2>
         <div style="display: grid; grid-template-columns: 1fr 50px 50px 1fr; gap: 5px; align-items: center; margin-bottom: 10px;">
@@ -100,13 +69,11 @@
         <button class="btn btn-primary" onclick="registrarPartida()">Registrar Resultado</button>
     </div>
 
-    <!-- EXPORTAR -->
     <div class="card">
         <h2>Relatórios</h2>
         <button class="btn btn-export" onclick="exportarRelatorio()">📥 Baixar Relatório (.txt)</button>
     </div>
 
-    <!-- CLASSIFICAÇÃO -->
     <div class="card">
         <div class="flex-header">
             <h2>Tabela de Classificação</h2>
@@ -114,38 +81,24 @@
         </div>
         <div class="dashboard-grid">
             <div class="table-container">
-            <table id="tabela-class">
-                <thead>
-                    <tr>
-                        <th>TIME</th>
-                        <th>P</th>
-                        <th>V</th>
-                        <th>E</th>
-                        <th>D</th>
-                        <th>GP</th>
-                        <th>GC</th>
-                        <th>SG</th>
-                        <th>CART</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div class="side-panel">
-            <h2>Últimos Resultados</h2>
-            <div class="scroll-list" id="ultimos-resultados"></div>
-        </div>
-
-        <div class="side-panel">
-            <h2>Artilharia</h2>
-            <div class="scroll-list" id="ranking-artilharia"></div>
-        </div>
-
+                <table id="tabela-class">
+                    <thead>
+                        <tr><th>TIME</th><th>P</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>X</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="side-panel">
+                <h2>Últimos Resultados</h2>
+                <div class="scroll-list" id="ultimos-resultados"></div>
+            </div>
+            <div class="side-panel">
+                <h2>Artilharia</h2>
+                <div class="scroll-list" id="ranking-artilharia"></div>
+            </div>
         </div>
     </div>
 
-    <!-- LANÇAMENTO SCOUTS -->
     <div class="card">
         <div class="flex-header">
             <h2>Lançar Scouts</h2>
@@ -153,14 +106,7 @@
         </div>
         <div class="table-container">
             <table id="tabela-scouts">
-                <thead>
-                    <tr>
-                        <th>JOGADOR/TIME</th>
-                        <th>GOLS</th>
-                        <th>ASSIS</th>
-                        <th>CART</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>JOGADOR/TIME</th><th>GOLS</th><th>ASSIS</th><th>CART</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>
@@ -186,6 +132,15 @@
             salvar();
         }
 
+        function removerTime(nome) {
+            if(confirm(`Tem certeza que deseja remover o time ${nome}? Isso também apagará os jogadores vinculados a ele.`)) {
+                times = times.filter(t => t.nome !== nome);
+                jogadores = jogadores.filter(j => j.time !== nome);
+                partidas = partidas.filter(p => p.casa !== nome && p.fora !== nome);
+                salvar();
+            }
+        }
+
         function addJogador() {
             const nome = document.getElementById('nome-jogador').value;
             const time = document.getElementById('select-time-jogador').value;
@@ -198,48 +153,31 @@
         function resetTabela() {
             if (confirm("Zerar classificação?")) {
                 times.forEach(t => { t.v=0; t.e=0; t.d=0; t.gp=0; t.gc=0; });
+                partidas = [];
                 salvar();
             }
         }
 
         function excluirJogadores() {
-            if (confirm("Apagar jogadores?")) {
-                jogadores = [];
-                salvar();
-            }
+            if (confirm("Apagar jogadores?")) { jogadores = []; salvar(); }
         }
 
-        function updateScout(idx, campo) {
-            jogadores[idx][campo]++;
-            salvar();
-        }
+        function updateScout(idx, campo) { jogadores[idx][campo]++; salvar(); }
 
         function registrarPartida() {
             const tC = times.find(t => t.nome === document.getElementById('time-casa').value);
             const tF = times.find(t => t.nome === document.getElementById('time-fora').value);
             const gC = parseInt(document.getElementById('gols-casa').value) || 0;
             const gF = parseInt(document.getElementById('gols-fora').value) || 0;
-
             if (!tC || !tF || tC === tF) return;
-
             tC.gp += gC; tC.gc += gF;
             tF.gp += gF; tF.gc += gC;
-
             if (gC > gF) { tC.v++; tF.d++; }
             else if (gF > gC) { tF.v++; tC.d++; }
             else { tC.e++; tF.e++; }
-
             document.getElementById('gols-casa').value = '';
             document.getElementById('gols-fora').value = '';
-
-            partidas.unshift({
-                casa: tC.nome,
-                fora: tF.nome,
-                golsCasa: gC,
-                golsFora: gF,
-                data: new Date().toLocaleString('pt-BR')
-            });
-
+            partidas.unshift({ casa: tC.nome, fora: tF.nome, golsCasa: gC, golsFora: gF, data: new Date().toLocaleString('pt-BR') });
             salvar();
         }
 
@@ -248,32 +186,14 @@
         }
 
         function exportarRelatorio() {
-            let conteudo = "🏆 RELATÓRIO DO CAMPEONATO 🏆\n\n";
-            
-            // Tabela
-            conteudo += "--- CLASSIFICAÇÃO ---\n";
+            let conteudo = "🏆 RELATÓRIO DO CAMPEONATO 🏆\n\n--- CLASSIFICAÇÃO ---\n";
             const ordenados = [...times].sort((a,b) => {
                 const pA = a.v*3+a.e; const pB = b.v*3+b.e;
                 if(pB !== pA) return pB - pA;
                 if(b.v !== a.v) return b.v - a.v;
                 return (b.gp-b.gc) - (a.gp-a.gc);
             });
-            ordenados.forEach((t, i) => {
-                conteudo += `${i+1}. ${t.nome.padEnd(15)} | P:${t.v*3+t.e} V:${t.v} SG:${t.gp-t.gc}\n`;
-            });
-
-            // Artilharia
-            conteudo += "\n--- ARTILHARIA ---\n";
-            [...jogadores].sort((a,b) => b.gols - a.gols).filter(j => j.gols > 0).forEach(j => {
-                conteudo += `${j.nome.padEnd(15)} (${j.time}) - ${j.gols} Gols\n`;
-            });
-
-            // Assistências
-            conteudo += "\n--- ASSISTÊNCIAS ---\n";
-            [...jogadores].sort((a,b) => b.assistencias - a.assistencias).filter(j => j.assistencias > 0).forEach(j => {
-                conteudo += `${j.nome.padEnd(15)} (${j.time}) - ${j.assistencias} Assis.\n`;
-            });
-
+            ordenados.forEach((t, i) => { conteudo += `${i+1}. ${t.nome.padEnd(15)} | P:${t.v*3+t.e} V:${t.v} SG:${t.gp-t.gc}\n`; });
             const blob = new Blob([conteudo], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -295,9 +215,7 @@
                 const pA = a.v*3+a.e; const pB = b.v*3+b.e;
                 if(pB !== pA) return pB - pA;
                 if(b.v !== a.v) return b.v - a.v;
-                if((b.gp-b.gc) !== (a.gp-a.gc)) return (b.gp-b.gc) - (a.gp-a.gc);
-                if(b.gp !== a.gp) return b.gp - a.gp;
-                return totalCartoesTime(a.nome) - totalCartoesTime(b.nome);
+                return (b.gp-b.gc) - (a.gp-a.gc);
             });
 
             const tab = document.querySelector('#tabela-class tbody');
@@ -306,14 +224,13 @@
                 tab.innerHTML += `<tr>
                     <td>${i+1}. <strong>${t.nome}</strong></td>
                     <td class="points">${t.v*3+t.e}</td>
-                    <td>${t.v+t.e+t.d}</td>
                     <td>${t.v}</td>
                     <td>${t.e}</td>
                     <td>${t.d}</td>
                     <td>${t.gp}</td>
                     <td>${t.gc}</td>
                     <td>${t.gp-t.gc}</td>
-                    <td style="color:var(--warning)">${totalCartoesTime(t.nome)}</td>
+                    <td><button class="btn-delete-row" onclick="removerTime('${t.nome}')">X</button></td>
                 </tr>`;
             });
 
@@ -329,24 +246,15 @@
             });
 
             const hist = document.getElementById('ultimos-resultados');
-            if(hist){
-                hist.innerHTML='';
-                partidas.forEach(p=>{
-                    hist.innerHTML += `<div class="result-item"><strong>${p.casa}</strong> ${p.golsCasa} x ${p.golsFora} <strong>${p.fora}</strong><br><small style="color:var(--text-secondary)">${p.data}</small></div>`;
-                });
-            }
+            hist.innerHTML = '';
+            partidas.forEach(p => { hist.innerHTML += `<div class="result-item"><strong>${p.casa}</strong> ${p.golsCasa} x ${p.golsFora} <strong>${p.fora}</strong><br><small style="color:var(--text-secondary)">${p.data}</small></div>`; });
 
             const art = document.getElementById('ranking-artilharia');
-            if(art){
-                art.innerHTML='';
-                [...jogadores].sort((a,b)=>b.gols-a.gols).forEach((j,i)=>{
-                    const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
-                    art.innerHTML += `<div class="art-item"><span>${medal} ${j.nome}<br><small style="color:var(--text-secondary)">${j.time}</small></span><strong>${j.gols}</strong></div>`;
-                });
-            }
-
+            art.innerHTML = '';
+            [...jogadores].sort((a,b)=>b.gols-a.gols).forEach((j,i)=>{
+                if(j.gols > 0) art.innerHTML += `<div class="art-item"><span>${j.nome}<br><small style="color:var(--text-secondary)">${j.time}</small></span><strong>${j.gols}</strong></div>`;
+            });
         }
-
         render();
     </script>
 </body>
